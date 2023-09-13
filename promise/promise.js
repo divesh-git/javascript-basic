@@ -135,14 +135,43 @@ Promise.all([promiseSix,promiseSeven,promiseResult]).then((value)=>{
 
 //8. Promise allSettled()
 
-Promise.allSettled([
-    Promise.resolve("the first value to be resolved"),
-    new Promise((resolve)=>{
-        resolve("second promise to be resolved")
+// Promise.allSettled([
+//     Promise.resolve("the first value to be resolved"),
+//     new Promise((resolve)=>{
+//         resolve("second promise to be resolved")
+//     }),
+//     Promise.reject("Promise is rejected")
+// ]).then((value)=>{
+//     console.log(value)
+// })
+
+
+//9. Promise race()
+
+//Promise race()race multiple promises against each other,
+//  the first promise to settle (either fulfill or reject) will determine the outcome of the race
+let data1= Promise.race([
+    new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+      resolve("Promise takes 2 sec")
+        },2000)
     }),
-    Promise.reject("Promise is rejected")
+    new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+        resolve("It takes 3 sec")
+        },3000)
+    }),
+    new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+        reject("It takes 1 sec and fails")
+        },1000)
+    })
+
 ]).then((value)=>{
-    console.log(value)
+   console.log(value)
+})
+.catch((error)=>{
+    console.log("E",error)
 })
 
 
