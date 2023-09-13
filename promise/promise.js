@@ -84,6 +84,66 @@ async function resolvePromise (){
 }
 resolvePromise()
 
+//6. Promise all waits for all fulfillment or the first rejection
+let data = Promise.all([
+
+    new Promise ((resolve,reject)=>{
+        setTimeout(()=>{
+        resolve("I am Promise one")
+        },2000)
+    }),
+     new Promise ((resolve,reject)=>{
+        setTimeout(()=>{
+        resolve("I am Promise two")
+        },1000)
+    }),
+    new Promise ((resolve,reject)=>{
+        setTimeout(()=>{
+        resolve("I am Promise three")
+        },4000)
+    })
+    ])
+    data.then((response)=>{
+    console.log(response);
+    })
+    .catch((error)=>{
+    console.log("E:-",error)
+    })
+
+    // 7. example of Promise all()
+    const promiseSix = Promise.resolve(20);
+    const promiseSeven =24;
+
+const promiseResult = new Promise ((resolve,reject)=>{
+    setTimeout(()=>{
+        try {
+            resolve("I am  promise three")
+        } catch (error) {
+            reject("ERROR in the promise three")
+        }
+   
+    },2000)
+})
+Promise.all([promiseSix,promiseSeven,promiseResult]).then((value)=>{
+    console.log(value);
+})
+.catch((error)=>{
+    console.log("E:-",error);
+})
+
+
+
+//8. Promise allSettled()
+
+Promise.allSettled([
+    Promise.resolve("the first value to be resolved"),
+    new Promise((resolve)=>{
+        resolve("second promise to be resolved")
+    }),
+    Promise.reject("Promise is rejected")
+]).then((value)=>{
+    console.log(value)
+})
 
 
 
